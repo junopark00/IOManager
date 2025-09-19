@@ -1,0 +1,26 @@
+{
+    "Project1" : {
+        "Use_OCIO" : true,
+        "EXR_colorspace" : "ACES - ACEScg",
+        "MOV_colorspace" : "Utility - Raw",
+        "Use_cube" : true,
+        "ocio_in" : "ACES - ACEScg",
+        "ocio_out" : "ARRI LogC3 (EI800)"
+    },
+    "Project2" : {
+        "Use_OCIO" : true,
+        "EXR_colorspace" : "ACES - ACEScg",
+        "MOV_colorspace" : "Utility - Raw",
+        "Use_cube" : false,
+        "ocio_in" : null,
+        "ocio_out" : null
+    },
+    "Project3" : {
+        "Use_OCIO" : false,
+        "EXR_colorspace" : "AlexaV3LogC",
+        "MOV_colorspace" : "rec709",
+        "Use_cube" : true,
+        "ocio_in" : null,
+        "ocio_out" : null
+    }
+}

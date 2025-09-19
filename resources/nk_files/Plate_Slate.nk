@@ -1,0 +1,646 @@
+#! C:/Program Files/Nuke15.1v5/nuke-15.1.5.dll -nx
+version 15.1 v5
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="0" y="0" w="2557" h="1368" screen="0">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="1894" stretch="1"/>
+            <splitter orientation="2">
+                <split size="778"/>
+                <dock id="" activePageId="Viewer.1">
+                    <page id="Viewer.1"/>
+                </dock>
+                <split size="548"/>
+                <dock id="" activePageId="DAG.1" focus="true">
+                    <page id="DAG.1"/>
+                    <page id="Curve Editor.1"/>
+                    <page id="DopeSheet.1"/>
+                </dock>
+            </splitter>
+            <split size="615"/>
+            <dock id="" activePageId="Properties.1">
+                <page id="Properties.1"/>
+                <page id="uk.co.thefoundry.backgroundrenderview.1"/>
+                <page id="Scenegraph.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name W:/MTHD_core/standalone/io-manager/resources/nk_files/Plate_Slate.nk
+ frame 1035
+ first_frame 1001
+ last_frame 1190
+ lock_range true
+ format "2048 1556 0 0 2048 1556 1 2K_Super_35(full-ap)"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ colorManagement OCIO
+ OCIO_config custom
+ customOCIOConfigPath W:/Library/Global/Plate_Setup/OCIO/TMP/config.ocio
+ defaultViewerLUT "OCIO LUTs"
+ workingSpaceLUT scene_linear
+ monitorLut "sRGB (ACES)"
+ monitorOutLUT "Rec.709 (ACES)"
+ int8Lut matte_paint
+ int16Lut texture_paint
+ logLut compositing_log
+ floatLut scene_linear
+ addUserKnob {20 Deadline}
+ addUserKnob {1 FrameListMode l frameListMode}
+ addUserKnob {1 CustomFrameList l customFrameList}
+ addUserKnob {1 Department l department}
+ addUserKnob {1 Pool l pool}
+ addUserKnob {1 SecondaryPool l secondaryPool}
+ addUserKnob {1 Group l group}
+ addUserKnob {1 Priority l priority}
+ addUserKnob {1 MachineLimit l machineLimit}
+ addUserKnob {1 IsBlacklist l isBlacklist}
+ addUserKnob {1 MachineList l machineList}
+ addUserKnob {1 LimitGroups l limitGroups}
+ addUserKnob {1 SubmitSuspended l submitSuspended}
+ addUserKnob {1 ChunkSize l chunkSize}
+ addUserKnob {1 ConcurrentTasks l concurrentTasks}
+ addUserKnob {1 LimitConcurrentTasks l limitConcurrentTasks}
+ addUserKnob {1 Threads l threads}
+ addUserKnob {1 SubmitScene l submitScene}
+ addUserKnob {1 BatchMode l batchMode}
+ addUserKnob {1 ContinueOnError l continueOnError}
+ addUserKnob {1 UseNodeRange l useNodeRange}
+ addUserKnob {1 UseGpu l useGpu}
+ addUserKnob {1 UseSpecificGpu l useSpecificGpu}
+ addUserKnob {1 ChooseGpu l chooseGpu}
+ addUserKnob {1 EnforceRenderOrder l enforceRenderOrder}
+ addUserKnob {1 DeadlineRenderMode l deadlineRenderMode}
+ addUserKnob {1 PerformanceProfiler l performanceProfiler}
+ addUserKnob {1 ReloadPlugin l reloadPlugin}
+ addUserKnob {1 PerformanceProfilerPath l performanceProfilerPath}
+}
+Group {
+ inputs 0
+ name Plate_Slate1
+ knobChanged "\nnode = nuke.thisNode()\nknob = nuke.thisKnob()\nif knob.name() == 'box_width' or knob.name() == 'box_height' or knob.name() == 'bar_height' or knob.name() == 'ratio':\n    width = node\['box_width'].value()\n    height = node\['box_height'].value()\n    node\['box_width_1'].setValue(width)\n    node\['box_height_1'].setValue(height)\n    metadata_script = '\{set input/width %s\}\\n\{set input/height %s\}' % (int(width), int(height))\n    node\['metadata'].fromScript(metadata_script)\n    bar_height = node\['bar_height'].value()\n    width = node\['box_width'].value()\n    height = node\['box_height'].value()\n    node\['box'].setValue(\[0, bar_height, width, height - bar_height])\nelif knob.name() == 'mask_opacity':\n    mask_opacity = knob.value()\n    mapping = \{\"100%\": 1, \"50%\": 0.5, \"0%\": 0\}\n    node\['mix'].setValue(mapping\[mask_opacity])\n"
+ tile_color 0xff
+ note_font "Arial Black"
+ note_font_color 0xff5555ff
+ xpos 88
+ ypos -58
+ addUserKnob {20 slate_tab l Slate t slate_tab}
+ addUserKnob {26 label_3 l "" +STARTLINE T "\[Slate Info]"}
+ addUserKnob {1 show l Show}
+ addUserKnob {1 vendor l "  Vendor" -STARTLINE +INVISIBLE}
+ vendor MortarHeadd
+ addUserKnob {1 shot l "     Shot" -STARTLINE}
+ addUserKnob {1 version l "  Version" -STARTLINE +INVISIBLE}
+ version GHS_0010_cmp_version
+ addUserKnob {41 size_left_top l "Left Top" +INVISIBLE T Left_Top.size}
+ addUserKnob {41 size_center_top l " Center Top" -STARTLINE +INVISIBLE T Center_Top.size}
+ addUserKnob {41 size_center_top_1 l " Right Top" -STARTLINE +INVISIBLE T Right_Top.size}
+ addUserKnob {41 size_left_bottom l "Left Bot" +INVISIBLE T Left_Bottom.size}
+ addUserKnob {41 size_center_bottom l " Center Bot" -STARTLINE +INVISIBLE T Center_Bottom.size}
+ addUserKnob {41 size_right_bottom l " Right Bot" -STARTLINE +INVISIBLE T Right_Bottom.size}
+ addUserKnob {26 ""}
+ addUserKnob {3 box_width l Resolution t box_width}
+ box_width 3840
+ addUserKnob {41 box_width_1 l "" +STARTLINE +INVISIBLE T Reformat_Orig.box_width}
+ addUserKnob {41 box_height_1 l "" -STARTLINE +INVISIBLE T Reformat_Orig.box_height}
+ addUserKnob {41 metadata l "" +STARTLINE +INVISIBLE T ModifyMetaData1.metadata}
+ addUserKnob {3 box_height l "" t box_height -STARTLINE}
+ box_height 2160
+ addUserKnob {4 mask_opacity l Opacity M {100% 50% 0% ""}}
+ mask_opacity 50%
+ addUserKnob {41 mix +INVISIBLE T mask_merge.mix}
+ addUserKnob {3 bar_height l "Bar Height"}
+ bar_height {{"(\[value box_height] - \[value box_width] / \[value ratio]) / 2"}}
+ addUserKnob {4 ratio l "Aspect Ratio" +INVISIBLE M {1.85 2 2.35 ""}}
+ ratio 2
+ addUserKnob {26 _1 l ": 1" -STARTLINE +INVISIBLE T " "}
+ addUserKnob {41 box +INVISIBLE T Crop1.box}
+ addUserKnob {20 expression l Expression}
+ addUserKnob {26 label_1 l "" +STARTLINE T "\[Expressions]"}
+ addUserKnob {41 message_left_top l "" t message_left_top +STARTLINE T Left_Top.message}
+ addUserKnob {41 message_center_top l " " t message_center_top -STARTLINE T Center_Top.message}
+ addUserKnob {41 message_center_top_1 l "" -STARTLINE T Center_Top1.message}
+ addUserKnob {41 message_right_top l " " t message_right_top -STARTLINE T Right_Top.message}
+ addUserKnob {41 message_left_bottom l "" t message_left_bottom +STARTLINE T Left_Bottom.message}
+ addUserKnob {41 message_center_bottom l " " t message_center_bottom -STARTLINE T Center_Bottom.message}
+ addUserKnob {41 message_right_bottom_1 l "" -STARTLINE T Right_Bottom1.message}
+ addUserKnob {41 message_right_bottom l " " t message_right_bottom -STARTLINE T Right_Bottom.message}
+}
+ Input {
+  inputs 0
+  name Input
+  xpos -47
+  ypos -104
+ }
+ Dot {
+  name Dot8
+  note_font_size 35
+  note_font_color 0xffffff
+  xpos -13
+  ypos -37
+ }
+set Nc759a400 [stack 0]
+ ModifyMetaData {
+  metadata {
+   {set input/width 3840}
+   {set input/height 2160}
+  }
+  name ModifyMetaData1
+  xpos 117
+  ypos -40
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  format "8192 6144 0 0 8192 6144 1 8K_CubeMap"
+  name Constant3
+  xpos 558
+  ypos -134
+ }
+ CopyMetaData {
+  inputs 2
+  name CopyMetaData1
+  xpos 558
+  ypos -40
+ }
+ Dot {
+  name Dot1
+  note_font_size 35
+  note_font_color 0xffffff
+  xpos 592
+  ypos 19
+ }
+set Nc759b400 [stack 0]
+ Dot {
+  name Dot9
+  note_font_size 35
+  note_font_color 0xffffff
+  xpos 977
+  ypos 19
+ }
+ Text {
+  message Timecode
+  font C:/Windows/Fonts/Arial.ttf
+  size {{"\[metadata input/width] / 1920 * 20"}}
+  kerning 0.02
+  xjustify right
+  yjustify center
+  Transform 1
+  box {0 0 {"\[metadata input/width] - \[metadata input/width] / 3840 * 20"} {"\[value \[node Crop1].box.y]\n"}}
+  translate {{"\[metadata input/width] / 3840 * -250"} 0}
+  center {1024 778}
+  color {1 1 1 1}
+  name TIMECODE
+  xpos 943
+  ypos 37
+ }
+ Text {
+  message "\[metadata input/timecode]"
+  font C:/Windows/Fonts/Arial.ttf
+  size {{"\[metadata input/width] / 1920 * 20"}}
+  kerning 0.02
+  xjustify right
+  yjustify center
+  Transform 1
+  box {0 0 {"\[metadata input/width] - \[metadata input/width] / 3840 * 20"} {"\[value \[node Crop1].box.y]\n"}}
+  center {1024 778}
+  color {1 1 -0.5 1}
+  color_panelDropped true
+  name Right_Bottom
+  xpos 943
+  ypos 61
+ }
+ Merge2 {
+  name Merge4
+  xpos 943
+  ypos 117
+ }
+push $Nc759b400
+ Dot {
+  name Dot2
+  note_font_size 35
+  note_font_color 0xffffff
+  xpos 867
+  ypos 19
+ }
+ Text {
+  message FrameRate
+  font C:/Windows/Fonts/Arial.ttf
+  size {{"\[metadata input/width] / 1920 * 20"}}
+  kerning 0.02
+  yjustify center
+  Transform 1
+  box {{"\[metadata input/width] / 3 * 2"} 0 {"\[metadata input/width]"} {"\[value \[node Crop1].box.y]\n"}}
+  translate {{"\[metadata input/width] / 3840 * -130"} 0}
+  center {1024 778}
+  color {1 1 1 1}
+  name FrameRate
+  xpos 833
+  ypos 37
+ }
+ Text {
+  message "\[python \{round(nuke.thisNode().metadata().get('input/frame_rate', 0), 3) if nuke.thisNode().metadata().get('input/frame_rate') else \"\"\}]"
+  font C:/Windows/Fonts/Arial.ttf
+  size {{"\[metadata input/width] / 1920 * 20"}}
+  kerning 0.02
+  yjustify center
+  Transform 1
+  box {{"\[metadata input/width] / 3 * 2"} 0 {"\[metadata input/width]"} {"\[value \[node Crop1].box.y]\n"}}
+  translate {{"\[metadata input/width] / 3840 * 100"} 0}
+  center {1024 778}
+  color {1 1 -0.5 1}
+  color_panelDropped true
+  name Right_Bottom1
+  xpos 833
+  ypos 61
+ }
+ Merge2 {
+  inputs 2
+  name Merge8
+  xpos 833
+  ypos 117
+ }
+push $Nc759b400
+ Dot {
+  name Dot3
+  note_font_size 35
+  note_font_color 0xffffff
+  xpos 757
+  ypos 19
+ }
+ Text {
+  message "Frame\nRange"
+  font C:/Windows/Fonts/Arial.ttf
+  size {{"\[metadata input/width] / 1920 * 20"}}
+  kerning 0.02
+  yjustify center
+  Transform 1
+  box {{"\[metadata input/width] / 3"} 0 {"\[metadata input/width]"} {"\[value \[node Crop1].box.y]\n"}}
+  translate {{"\[metadata input/width] / 3840 * -140"} 0}
+  center {1024 778}
+  color {1 1 1 1}
+  name FRAME
+  xpos 723
+  ypos 37
+ }
+ Text {
+  message "\[frame]\n\[value root.first_frame]-\[value root.last_frame] (\[expr \{\[value root.last_frame] - \[value root.first_frame] + 1\}])"
+  font C:/Windows/Fonts/Arial.ttf
+  size {{"\[metadata input/width] / 1920 * 20"}}
+  kerning 0.02
+  yjustify center
+  Transform 1
+  box {{"\[metadata input/width] / 3"} 0 {"\[metadata input/width]"} {"\[value \[node Crop1].box.y]\n"}}
+  center {1024 778}
+  color {1 1 -0.5 1}
+  color_panelDropped true
+  name Center_Bottom
+  xpos 723
+  ypos 61
+ }
+ Merge2 {
+  inputs 2
+  name Merge7
+  xpos 723
+  ypos 117
+ }
+push $Nc759b400
+ Dot {
+  name Dot4
+  note_font_size 35
+  note_font_color 0xffffff
+  xpos 647
+  ypos 19
+ }
+ Text {
+  message "CameraModel\nFocalLength"
+  font C:/Windows/Fonts/Arial.ttf
+  size {{"\[metadata input/width] / 1920 * 20"}}
+  kerning 0.02
+  leading 0.1
+  yjustify center
+  Transform 1
+  box {0 0 {"\[metadata input/width]"} {"\[value \[node Crop1].box.y]\n"}}
+  translate {{"\[metadata input/width] / 3840 * 20"} 0}
+  center {1024 778}
+  color {1 1 1 1}
+  name CAMERA
+  xpos 613
+  ypos 37
+ }
+ Text {
+  message "\[python \{nuke.thisNode().metadata()\[\[md for md in nuke.thisNode().metadata().keys() if \"cameramodel\" in md.lower()]\[0]] if 0 < len(\[md for md in nuke.thisNode().metadata().keys() if \"cameramodel\" in md.lower()]) else \"\" \}]\n\[python \{nuke.thisNode().metadata()\[\[md for md in nuke.thisNode().metadata().keys() if \"focallength\" in md.lower()]\[0]] if 0 < len(\[md for md in nuke.thisNode().metadata().keys() if \"focallength\" in md.lower()]) else \"\" \}]"
+  font C:/Windows/Fonts/Arial.ttf
+  size {{"\[metadata input/width] / 1920 * 20"}}
+  kerning 0.02
+  leading 0.1
+  yjustify center
+  Transform 1
+  box {0 0 {"\[metadata input/width]"} {"\[value \[node Crop1].box.y]\n"}}
+  translate {{"\[metadata input/width] / 3840 * 300"} 0}
+  center {1024 778}
+  color {1 1 -0.5 1}
+  color_panelDropped true
+  name Left_Bottom
+  xpos 613
+  ypos 61
+ }
+ Merge2 {
+  inputs 2
+  name Merge6
+  xpos 613
+  ypos 117
+ }
+push $Nc759b400
+ Dot {
+  name Dot5
+  note_font_size 35
+  note_font_color 0xffffff
+  xpos 537
+  ypos 19
+ }
+ Text {
+  message SIZE
+  font C:/Windows/Fonts/Arial.ttf
+  size {{"\[metadata input/width] / 1920 * 20"}}
+  kerning 0.02
+  xjustify right
+  yjustify center
+  Transform 1
+  box {0 {"\[metadata input/height] - \[value \[node Crop1].box.y]\n"} {"\[metadata input/width] - \[metadata input/width] / 3840 * 20"} {"\[metadata input/height]"}}
+  translate {{"\[metadata input/width] / 3840 * -250"} 0}
+  center {1024 778}
+  name SIZE
+  xpos 503
+  ypos 37
+ }
+ Text {
+  message "\[value Reformat_Orig.box_width] x \[value Reformat_Orig.box_height]"
+  font C:/Windows/Fonts/Arial.ttf
+  size {{"\[metadata input/width] / 1920 * 20"}}
+  kerning 0.02
+  xjustify right
+  yjustify center
+  Transform 1
+  box {0 {"\[metadata input/height] - \[value \[node Crop1].box.y]\n"} {"\[metadata input/width] - \[metadata input/width] / 3840 * 20"} {"\[metadata input/height]"}}
+  center {1024 778}
+  color {1 1 -0.5 1}
+  color_panelDropped true
+  name Right_Top
+  xpos 503
+  ypos 61
+ }
+ Merge2 {
+  inputs 2
+  name Merge5
+  xpos 503
+  ypos 117
+ }
+push $Nc759b400
+ Dot {
+  name Dot10
+  note_font_size 35
+  note_font_color 0xffffff
+  xpos 427
+  ypos 17
+ }
+ Text {
+  message ReelName
+  font C:/Windows/Fonts/Arial.ttf
+  size {{"\[metadata input/width] / 1920 * 20"}}
+  kerning 0.02
+  yjustify center
+  Transform 1
+  box {{"\[metadata input/width] / 3 * 2"} {"\[metadata input/height] - \[value \[node Crop1].box.y]\n"} {"\[metadata input/width]"} {"\[metadata input/height]"}}
+  translate {{"\[metadata input/width] / 3840 * -400"} 0}
+  center {1024 778}
+  name REELNAME
+  xpos 393
+  ypos 35
+ }
+ Text {
+  message "\[python \{nuke.thisNode().metadata()\[\[md for md in nuke.thisNode().metadata().keys() if \"reelname\" in md.lower()]\[-1]] if 0 < len(\[md for md in nuke.thisNode().metadata().keys() if \"reelname\" in md.lower()]) else \"\" \}]"
+  font C:/Windows/Fonts/Arial.ttf
+  size {{"\[metadata input/width] / 1920 * 20"}}
+  kerning 0.02
+  yjustify center
+  Transform 1
+  box {{"\[metadata input/width] / 3 * 2"} {"\[metadata input/height] - \[value \[node Crop1].box.y]\n"} {"\[metadata input/width]"} {"\[metadata input/height]"}}
+  translate {{"\[metadata input/width] / 3840 * -170"} 0}
+  center {1024 778}
+  color {1 1 -0.5 1}
+  color_panelDropped true
+  name Center_Top1
+  xpos 393
+  ypos 61
+ }
+ Merge2 {
+  inputs 2
+  name Merge10
+  xpos 393
+  ypos 117
+ }
+push $Nc759b400
+ Dot {
+  name Dot6
+  note_font_size 35
+  note_font_color 0xffffff
+  xpos 322
+  ypos 19
+ }
+ Text {
+  message SHOT
+  font C:/Windows/Fonts/Arial.ttf
+  size {{"\[metadata input/width] / 1920 * 20"}}
+  kerning 0.02
+  yjustify center
+  Transform 1
+  box {{"\[metadata input/width] / 3"} {"\[metadata input/height] - \[value \[node Crop1].box.y]\n"} {"\[metadata input/width]"} {"\[metadata input/height]"}}
+  translate {{"\[metadata input/width] / 3840 * -140"} 0}
+  center {1024 778}
+  name SHOT
+  xpos 288
+  ypos 37
+ }
+ Text {
+  message "\[expr \{\[value shot] ne \"\" ? \[value shot] : \[join \[lrange \[split \[file tail \[value root.name]] _] 0 1] _]\}]"
+  font C:/Windows/Fonts/Arial.ttf
+  size {{"\[metadata input/width] / 1920 * 20"}}
+  kerning 0.02
+  yjustify center
+  Transform 1
+  box {{"\[metadata input/width] / 3"} {"\[metadata input/height] - \[value \[node Crop1].box.y]\n"} {"\[metadata input/width]"} {"\[metadata input/height]"}}
+  translate {{"\[metadata input/width] / 3840 * 0"} 0}
+  center {1024 778}
+  color {1 1 -0.5 1}
+  color_panelDropped true
+  name Center_Top
+  xpos 288
+  ypos 61
+ }
+ Merge2 {
+  inputs 2
+  name Merge1
+  xpos 288
+  ypos 117
+ }
+push $Nc759b400
+ Dot {
+  name Dot7
+  note_font_size 35
+  note_font_color 0xffffff
+  xpos 212
+  ypos 19
+ }
+ Text {
+  message PROJECT
+  font C:/Windows/Fonts/Arial.ttf
+  size {{"\[metadata input/width] / 1920 * 20"}}
+  kerning 0.02
+  yjustify center
+  Transform 1
+  box {{"\[metadata input/width] / 3840 * 20"} {"\[metadata input/height] - \[value \[node Crop1].box.y]\n"} {"\[metadata input/width]"} {"\[metadata input/height]"}}
+  center {1024 778}
+  name PROJECT
+  xpos 178
+  ypos 37
+ }
+ Text {
+  message "\[expr \{\[value show] ne \"\" ? \[value show] : \[lindex \[split \[file tail \[value root.name]] _] 0]\}]"
+  font C:/Windows/Fonts/Arial.ttf
+  size {{"\[metadata input/width] / 1920 * 20"}}
+  kerning 0.02
+  yjustify center
+  Transform 1
+  box {{"\[metadata input/width] / 3840 * 20"} {"\[metadata input/height] - \[value \[node Crop1].box.y]\n"} {"\[metadata input/width]"} {"\[metadata input/height]"}}
+  translate {{"\[metadata input/width] / 3840 * 220"} 0}
+  center {1024 778}
+  color {1 1 -0.5 1}
+  color_panelDropped true
+  name Left_Top
+  xpos 178
+  ypos 61
+ }
+ Merge2 {
+  inputs 2
+  name Merge2
+  xpos 178
+  ypos 117
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  format "8192 6144 0 0 8192 6144 1 8K_CubeMap"
+  name Constant1
+  xpos 399
+  ypos 189
+ }
+ Reformat {
+  type "to box"
+  format "1920 1080 0 0 1920 1080 1 HD_1080"
+  box_width {{"\[value Reformat_Orig.width]"}}
+  box_height {{"\[value Reformat_Orig.height]"}}
+  box_fixed true
+  black_outside true
+  name Reformat_constant
+  xpos 289
+  ypos 213
+ }
+ Merge2 {
+  inputs 2
+  metainput A
+  name Merge3
+  xpos 178
+  ypos 213
+ }
+ Reformat {
+  type "to box"
+  format "1920 1080 0 0 1920 1080 1 HD_1080"
+  box_width {{"\[value Reformat_Orig.width]"}}
+  box_height {{"\[value Reformat_Orig.height]"}}
+  box_fixed true
+  black_outside true
+  name Reformat_text
+  xpos 63
+  ypos 213
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color 1
+  format "8192 6144 0 0 8192 6144 1 8K_CubeMap"
+  name Constant2
+  xpos -174
+  ypos -38
+ }
+ Reformat {
+  type "to box"
+  format "1920 1080 0 0 1920 1080 1 HD_1080"
+  box_width {{"\[value Reformat_Orig.width]"}}
+  box_height {{"\[value Reformat_Orig.height]"}}
+  box_fixed true
+  black_outside true
+  name Reformat_mask
+  xpos -174
+  ypos 81
+ }
+ Crop {
+  box {0 120 3840 2040}
+  name Crop1
+  xpos -174
+  ypos 141
+ }
+push $Nc759a400
+ Reformat {
+  type "to box"
+  format "1920 1080 0 0 1920 1080 1 HD_1080"
+  box_width 3840
+  box_height 2160
+  box_fixed true
+  black_outside true
+  name Reformat_Orig
+  xpos -47
+  ypos 81
+ }
+ Merge2 {
+  inputs 2
+  operation mask
+  mix 0.5
+  name mask_merge
+  xpos -47
+  ypos 141
+ }
+ Merge2 {
+  inputs 2
+  name Merge9
+  xpos -47
+  ypos 213
+ }
+ Reformat {
+  type "to box"
+  box_width {{"\[value Reformat_Orig.width]"}}
+  box_height {{"\[value Reformat_Orig.height]"}}
+  box_fixed true
+  name Reformat1
+  xpos -47
+  ypos 244
+ }
+ Output {
+  name Output1
+  xpos -47
+  ypos 277
+ }
+ Viewer {
+  frame_range 1001-1722
+  name Viewer1
+  xpos -47
+  ypos 327
+ }
+end_group
