@@ -45,8 +45,8 @@ IO Manager is a PyQt-based desktop application designed for VFX studios to strea
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-studio/io-manager.git
-   cd io-manager
+   git clone https://github.com/junopark00/IOManager.git
+   cd IOManager
    ```
 
 2. **Install Python dependencies:**
